@@ -1,8 +1,4 @@
-git+https://github.com/Rapptz/discord.py
-git+https://github.com/Gorialis/jishaku
 aiohttp==3.7.4
-import_expression
-discord-ext-menus
-asyncpg
 python-dotenv
-discord
+discord.py
+yt-dlp
