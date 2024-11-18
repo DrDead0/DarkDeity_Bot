@@ -111,5 +111,129 @@ async def help(ctx):
     embed.add_field(name="!info", value="Displays information about the server.")
     await ctx.send(embed=embed)
 
-# Run the bot
-bot.run(os.getenv("DISCORD_TOKEN"))
+# Additional commands
+@bot.command(name="welcome", help="Sends a welcome message")
+async def welcome(ctx):
+    await ctx.send("Welcome to the server! Please make sure to read the rules and enjoy your time here!")
+
+@bot.command(name="rules", help="Displays the server rules")
+async def rules(ctx):
+    rules_text = """
+    1. Discord TOS & Community Guidelines - All users need to follow Discord's Terms of Service and Community Guidelines.
+       Punishment - Ban
+
+    2. Bot Rules - As a Community server, we will enforce Bot rules.
+       Punishment - Ban
+
+    3. Racism - Any racial slurs or racist behavior/comments are NOT accepted.
+       Punishment - Warn/Mute/Ban
+
+    4. Channel Appropriacy - Keep things in the right channels.
+       Punishment - Mute/Warn
+
+    5. NSFW - No NSFW content is allowed.
+       Punishment - Warn/Ban
+
+    6. Voice Rules - No ear raping or inappropriate music in voice chat.
+       Punishment - Mute/Warn
+
+    7. Spam - No spamming of text, images, or emojis.
+       Punishment - Mute/Warn
+
+    8. Begging - Begging is strictly prohibited.
+       Punishment - Warn/Mute
+
+    9. Advertisement - No advertisements outside of #self-advertise and Partnerships.
+       Punishment - Warn/Mute
+
+    10. Common Sense - Use common sense and respect others.
+        Punishment - Depends
+    """
+    await ctx.send(f"Server Rules:\n{rules_text}")
+
+@bot.command(name="echo", help="Repeats the message provided by the user.")
+async def echo(ctx, *, message: str):
+    await ctx.send(message)
+
+@bot.command(name="hello", help="Greets the user.")
+async def hello(ctx):
+    await ctx.send("Hello there! How can I assist you today?")
+
+@bot.command(name="support", help="Provides the support server link.")
+async def support(ctx):
+    await ctx.send("For support, please join our [Support Server](your-support-server-link).")
+
+@bot.command(name="contact", help="Provides contact information.")
+async def contact(ctx):
+    await ctx.send("You can contact us at: support@yourdomain.com")
+
+@bot.command(name="ping", help="Checks the bot's latency.")
+async def ping(ctx):
+    await ctx.send(f"Pong! Latency is {round(bot.latency * 1000)}ms")
+
+@bot.command(name="clear", help="Clears the specified number of messages.")
+async def clear(ctx, amount: int):
+    await ctx.channel.purge(limit=amount)
+    await ctx.send(f"Cleared {amount} messages.", delete_after=5)
+
+@bot.command(name="kick", help="Kicks a user from the server.")
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, user: discord.User, *, reason: str = "No reason provided"):
+    await user.kick(reason=reason)
+    await ctx.send(f"Kicked {user.name} for reason: {reason}")
+
+@bot.command(name="ban", help="Bans a user from the server.")
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, user: discord.User, *, reason: str = "No reason provided"):
+    await user.ban(reason=reason)
+    await ctx.send(f"Banned {user.name} for reason: {reason}")
+
+@bot.command(name="unban", help="Unbans a user from the server.")
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, user: discord.User):
+    await ctx.guild.unban(user)
+    await ctx.send(f"Unbanned {user.name}")
+
+# Music control commands
+@bot.command(name="resume", help="Resumes the current music")
+async def resume(ctx):
+    voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice_client and voice_client.is_paused():
+        voice_client.resume()
+        await ctx.send("Resumed the music.")
+    else:
+        await ctx.send("No music is paused.")
+
+@bot.command(name="queue", help="Shows the music queue")
+async def queue(ctx):
+    # You can implement a queue system later if desired
+    await ctx.send("This feature is under development.")
+
+@bot.command(name="volume", help="Sets the music volume (0-100)")
+async def volume(ctx, level: int):
+    voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice_client:
+        if 0 <= level <= 100:
+            voice_client.source.volume = level / 100
+            await ctx.send(f"Volume set to {level}%")
+        else:
+            await ctx.send("Please provide a volume level between 0 and 100.")
+    else:
+        await ctx.send("Not currently playing any music.")
+
+@bot.command(name="join", help="Makes the bot join the voice channel")
+async def join(ctx):
+    voice_channel = ctx.author.voice.channel
+    await voice_channel.connect()
+    await ctx.send(f"Joined {voice_channel.name}!")
+
+@bot.command(name="leave", help="Makes the bot leave the voice channel")
+async def leave(ctx):
+    voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice_client:
+        await voice_client.disconnect()
+        await ctx.send("Disconnected from the voice channel.")
+    else:
+        await ctx.send("I'm not connected to any voice channel.")
+
+bot.run("YOUR_BOT_TOKEN")
