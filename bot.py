@@ -4,6 +4,13 @@ from discord import app_commands
 import yt_dlp as youtube_dl
 import random
 import os
+from dotenv import load_dotenv
+
+# Load the .env file for sensitive data (like your token)
+load_dotenv()
+
+# Get the Discord Token from .env file
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -169,9 +176,11 @@ async def slash_userinfo(interaction: discord.Interaction, user: discord.User):
     embed.set_thumbnail(url=user.avatar.url)
     await interaction.response.send_message(embed=embed)
 
-# Help Command (Prefix !)
-@bot.command(name="help", help="Displays this help message")
-async def help(ctx):
+# Custom Help Command (Prefix !)
+bot.remove_command("help")
+
+@bot.command(name="help-bot", help="Displays this help message")
+async def custom_help(ctx):
     embed = discord.Embed(title="Help Menu", description="Available Commands", color=0x3498db)
     embed.add_field(name="!play <url>", value="Plays music from a YouTube URL.")
     embed.add_field(name="!pause", value="Pauses the current music.")
@@ -185,4 +194,4 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 # Run the bot
-bot.run("YOUR_BOT_TOKEN")
+bot.run(TOKEN)
