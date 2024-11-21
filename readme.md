@@ -1,3 +1,4 @@
+
 # DarkDeity Discord Bot 
 ![DarkDeity Discord Bot Logo](https://github.com/DrDead0/Deity_Discord-Bot/blob/main/Logo/logo-2.png)
 
@@ -19,20 +20,22 @@
 
 ## Introduction
 
-DarkDeity Discord Bot is designed to improve your Discord server with a variety of engaging features, such as music playing, helpful commands, and more. This bot is a general-purpose bot for enhancing the server experience while leaving server moderation to the **Soul Police Bot**.
+DarkDeity Discord Bot is designed to elevate your Discord server experience with a wide range of features, including music playback, server management, and fun interactive commands. Whether you're looking for entertainment or useful tools, DarkDeity is here to help!
 
 ## Features
 
-- Automated welcome messages for new members.
-- Rules posting and management.
-- Help command to guide users with available bot commands.
-- Echo command to repeat user input.
-- Music playing with `yt-dlp` on a designated **music channel**.
-- `!ping` to check the bot's response time to Discord.
+- Automated welcome messages and goodbye messages for members.
+- Music playback powered by `yt-dlp` and FFmpeg.
+- Slash commands for modern Discord interaction.
+- Fun features like polls, jokes, fun facts, and mini-games.
+- Moderation tools: kick, ban, and unban commands.
+- Custom help menu for user guidance.
+- Interactive commands like number guessing and coin flipping.
+- Detailed server and user information displays.
 
 ## Installation
 
-To set up the DarkDeity Discord Bot on your server, follow these steps:
+To set up the DarkDeity Discord Bot, follow these steps:
 
 1. Clone the repository:
 
@@ -52,10 +55,10 @@ To set up the DarkDeity Discord Bot on your server, follow these steps:
     pip install -r requirements.txt
     ```
 
-4. Set up environment variables for your Discord bot token. You can either use `.env` or set them manually:
+4. Set up environment variables for your Discord bot token. Create a `.env` file in the root directory:
 
-    ```bash
-    export DISCORD_TOKEN='your_discord_bot_token'
+    ```
+    DISCORD_TOKEN=your_discord_bot_token
     ```
 
 ## Usage
@@ -68,43 +71,49 @@ python bot.py
 
 ## Configuration
 
-You can configure the bot using a `config.json` file located in the root directory. This file includes settings like welcome messages, rule texts, and more.
-
-Example `config.json`:
-
-```json
-{
-  "welcome_channel": "welcome",
-  "rules_channel": "rules",
-  "help_command": "!help",
-  "prefix": "!"
-}
-```
+The bot can be customized through hardcoded settings in the script or a `config.json` file (if implemented in future updates). You can modify:
+- Prefix for commands.
+- Welcome and rules channels.
+- Custom responses for some commands.
 
 ## Commands
 
-Here is a list of available commands:
+Here is the updated list of available commands:
 
-- `!welcome`: Sends a welcome message to the designated channel.
-- `!rules`: Posts the server rules.
-- `!help`: Displays the help message with a list of available commands.
-- `!echo [message]`: Repeats the message back to the channel.
-- `!hello`: Greets the user.
-- `!support`: Provides support contact information.
-- `!contact`: Displays contact information for the server admin.
-- `!info`: Provides information about the server.
-- `!ping`: Checks the bot's response time to Discord.
-- `!clear [number]`: Deletes a specified number of messages from a channel.
-- `!music [song name]`: Plays a song in the **music** channel (uses `yt-dlp` for audio playback).
+### Prefix Commands (`!`)
+- `!play <url>`: Plays music from a YouTube URL.
+- `!kick <user> [reason]`: Kicks a user from the server.
+- `!ban <user> [reason]`: Bans a user from the server.
+- `!unban <user>`: Unbans a previously banned user.
+- `!help-bot`: Displays the custom help menu.
+
+### Slash Commands (`/`)
+- `/play <url>`: Plays music from a YouTube URL.
+- `/coinflip`: Flips a coin (Heads or Tails).
+- `/poll <question> <options>`: Creates a poll with up to 10 options.
+- `/serverinfo`: Displays detailed information about the server.
+- `/userinfo <user>`: Displays detailed information about a user.
+- `/guessnumber`: Starts a number guessing game.
+- `/funfact`: Shares a random fun fact.
+- `/joke`: Tells a random joke.
+
+### Interactive Features
+- Number guessing game: `/guessnumber` allows players to guess numbers until they get it right.
+- Poll creation: `/poll` lets you create fully customizable polls for community engagement.
+- Fun content: `/funfact` and `/joke` provide entertainment.
 
 ## Support
 
-If you encounter any issues or have questions, please create an issue on the [GitHub repository](https://github.com/DrDead0/Deity_Discord-Bot/issues) or reach out for support.
+If you encounter any issues or have questions, please create an issue on the [GitHub repository](https://github.com/DrDead0/Deity_Discord-Bot/issues) or contact the developers.
 
 ## Contact
 
-Created by [Ashish Chaurasiya](https://github.com/DrDead0) & [Varchsava Khare](https://github.com/varchasvakhare2022) - Feel free to contact us!
+Created by [Ashish Chaurasiya](https://github.com/DrDead0) & [Varchsava Khare](https://github.com/varchasvakhare2022). Feel free to reach out to us for support or collaboration!
 
 ## License
 
-This project is licensed under the MIT License - [To See The LICENSE Click Here](https://github.com/DrDead0/Deity_Discord-Bot/blob/main/LICENSE)
+This project is licensed under the MIT License. [Read the full license here](https://github.com/DrDead0/Deity_Discord-Bot/blob/main/LICENSE).
+
+---
+
+This update reflects the current functionality of your bot, including the latest slash commands and interactive features.
